@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PomodoroClock from "./PomodoroTimer";
+import PomodoroTimer from "./PomodoroTimer";
 import PomodoroControls from "./PomodoroControls";
 import "./Pomodoro.css";
 
@@ -12,6 +12,7 @@ class Pomodoro extends Component {
       isPaused: true,
     };
     this.changeTime = this.changeTime.bind(this);
+    this.togglePlay = this.togglePlay.bind(this);
   }
 
   changeTime(newTime) {
@@ -22,11 +23,16 @@ class Pomodoro extends Component {
     });
   }
 
+  togglePlay() {
+    const newState = { ...this.state, isPaused: !this.state.isPaused };
+    this.setState(newState);
+  }
+
   render() {
     return (
       <div className="Pomodoro">
         <h1>Pomodoro goes here</h1>
-        <PomodoroClock
+        <PomodoroTimer
           workTime={this.state.workTime}
           restTime={this.state.restTime}
           isPaused={this.state.isPaused}
@@ -35,6 +41,7 @@ class Pomodoro extends Component {
           changeTime={this.changeTime}
           workTime={this.state.workTime}
           restTime={this.state.restTime}
+          togglePlay={this.togglePlay}
         />
       </div>
     );
