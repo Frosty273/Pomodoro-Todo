@@ -20,6 +20,7 @@ class Pomodoro extends Component {
       workTime: newTime.workTime,
       restTime: newTime.restTime,
       isPaused: true,
+      changed: true,
     });
   }
 
@@ -31,11 +32,10 @@ class Pomodoro extends Component {
   render() {
     return (
       <div className="Pomodoro">
-        <h1>Pomodoro goes here</h1>
         <PomodoroTimer
-          workTime={this.state.workTime}
-          restTime={this.state.restTime}
+          initialMinutes={this.state.workTime}
           isPaused={this.state.isPaused}
+          changed={false}
         />
         <PomodoroControls
           changeTime={this.changeTime}
