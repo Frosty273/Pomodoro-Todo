@@ -9,6 +9,9 @@ class PomoTodo extends Component {
       <div className="PomoTodo">
         <div className="PomoTodo-header">
           <h1>PomoTodo</h1>
+          <a href="https://https://github.com/Frosty273/Pomodoro-Todo">
+            <i class="far fa-question-circle"></i>
+          </a>
         </div>
         <Pomodoro />
         <TodoList />

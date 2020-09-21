@@ -1,6 +1,35 @@
 import React, { Component } from "react";
 import { v4 as uuid } from "uuid";
-import "./NewTodoForm.css";
+import { withStyles } from "@material-ui/styles";
+
+const styles = {
+  NewTodoForm: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    justifySelf: "flex - end",
+    height: "3.5em",
+    "& input": {
+      fontSize: "1.5em",
+      width: "25rem",
+      height: "2rem",
+      margin: "0.25em auto",
+      marginRight: "0.25em",
+      border: "none",
+      borderBottom: "2px solid #eeeeee",
+      paddingLeft: "10px",
+      backgroundColor: "#121212",
+      color: "#eeeeee",
+    },
+    "& button": {
+      height: "3em",
+      width: "5em",
+      border: "none",
+      backgroundColor: "#121212",
+      color: "#eeeeee",
+    },
+  },
+};
 
 class NewTodoForm extends Component {
   constructor(props) {
@@ -26,8 +55,9 @@ class NewTodoForm extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <form className="NewTodoForm" onSubmit={this.handleSubmit}>
+      <form className={classes.NewTodoForm} onSubmit={this.handleSubmit}>
         <div>
           <label htmlFor="desc"></label>
           <input
@@ -36,12 +66,15 @@ class NewTodoForm extends Component {
             onChange={this.handleChange}
             name="desc"
             value={this.state.desc}
+            placeholder="Add New Todo"
           ></input>
         </div>
-        <button>Add</button>
+        <button>
+          <i class="fas fa-plus fa-2x"></i>
+        </button>
       </form>
     );
   }
 }
 
-export default NewTodoForm;
+export default withStyles(styles)(NewTodoForm);
