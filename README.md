@@ -1,6 +1,6 @@
 # Pomodoro Todo App
 
-The pokedex displays information about a given pokemon name inputted into the search box. It displays back information such as the Pokemon sprite, abilities, type and stats.
+An app that combines a customizable Pomodoro timer and a Todo list together.
 
 ## Developer Instructions
 
