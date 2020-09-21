@@ -38,8 +38,13 @@ const styles = {
 class Todo extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isEditing: false,
+    };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleDelete(event) {
@@ -50,8 +55,17 @@ class Todo extends Component {
     this.props.toggleTodo(this.props.id);
   }
 
+  toggleEdit() {
+    this.props.toggleEditTodo(this.props.id);
+  }
+
+  handleChange(event) {
+    this.props.editTodo(this.props.id, event.target.value);
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, desc, isEditing } = this.props;
+
     let doneStyle;
     if (this.props.done) {
       doneStyle = {
@@ -62,7 +76,20 @@ class Todo extends Component {
     }
     return (
       <div className={classes.Todo}>
-        <p style={doneStyle}>{this.props.desc}</p>
+        {isEditing ? (
+          <input
+            type="text"
+            value={desc}
+            onChange={this.handleChange}
+            onBlur={this.toggleEdit}
+            autofocus
+          ></input>
+        ) : (
+          <p style={doneStyle} onDoubleClick={this.toggleEdit}>
+            {desc}
+          </p>
+        )}
+
         <button className={classes.done} onClick={this.handleToggle}>
           <i class="fas fa-check"></i>
         </button>
