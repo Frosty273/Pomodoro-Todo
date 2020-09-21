@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import PomodoroTimer from "./PomodoroTimer";
 import PomodoroControls from "./PomodoroControls";
-import "./Pomodoro.css";
+import { withStyles } from "@material-ui/styles";
+
+const styles = {
+  Pomodoro: {
+    width: "100%",
+    height: "15em",
+    color: "#eeeeee",
+    backgroundColor: "#353535",
+    borderRadius: "0.5em",
+  },
+};
 
 class Pomodoro extends Component {
   constructor(props) {
@@ -16,6 +26,9 @@ class Pomodoro extends Component {
   }
 
   changeTime(newTime) {
+    // Setting custom time requires work still
+    // Can't get new set time into PomodoroClock
+    // as PomodoroClock just keeps the old time and only updates initial time
     this.setState({
       workTime: newTime.workTime,
       restTime: newTime.restTime,
@@ -30,8 +43,9 @@ class Pomodoro extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div className="Pomodoro">
+      <div className={classes.Pomodoro}>
         <PomodoroTimer
           initialMinutes={this.state.workTime}
           isPaused={this.state.isPaused}
@@ -49,4 +63,4 @@ class Pomodoro extends Component {
   }
 }
 
-export default Pomodoro;
+export default withStyles(styles)(Pomodoro);

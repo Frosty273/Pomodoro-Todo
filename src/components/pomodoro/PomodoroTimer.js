@@ -1,11 +1,31 @@
 import React, { Component } from "react";
-import "./PomodoroTimer.css";
+import { withStyles } from "@material-ui/styles";
 
-class PomodoroClock extends Component {
+const styles = {
+  PomodoroTimer: {
+    fontSize: "3em",
+    marginBottom: "0",
+    height: "4.25em",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  clock: {
+    marginBottom: "0",
+    marginTop: "0",
+  },
+  message: {
+    fontSize: "17px",
+    marginTop: "0",
+  },
+};
+
+class PomodoroTimer extends Component {
   static defaultProps = {
     initialMinutes: 45,
     seconds: 0,
     isPaused: true,
+    isWorking: true,
   };
 
   constructor(props) {
@@ -33,15 +53,20 @@ class PomodoroClock extends Component {
   }
 
   render() {
-    let parsedSeconds = this.state.seconds;
+    const { classes, isWorking } = this.props;
+    const { minutes, seconds } = this.state;
+    let parsedSeconds = seconds;
     if (parsedSeconds < 10) {
-      parsedSeconds = "0" + this.state.seconds.toString(10);
+      parsedSeconds = "0" + seconds.toString(10);
     }
     return (
-      <div className="PomodoroClock">
-        <h2 className="PomodoroClock-clock">
-          {this.state.minutes} : {parsedSeconds}
+      <div className={classes.PomodoroTimer}>
+        <h2 className={classes.clock}>
+          {minutes} : {parsedSeconds}
         </h2>
+        <span className={classes.message}>
+          {isWorking ? "Time to get to work!" : "Time for a break!"}
+        </span>
       </div>
     );
   }
@@ -55,4 +80,4 @@ class PomodoroClock extends Component {
   }
 }
 
-export default PomodoroClock;
+export default withStyles(styles)(PomodoroTimer);
