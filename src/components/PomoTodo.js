@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Pomodoro from "./pomodoro/Pomodoro";
 import TodoList from "./todoList/TodoList";
-import "./PomoTodo.css";
 import { withStyles } from "@material-ui/styles";
+import Navbar from "./navbar/Navbar";
+import Settings from "./navbar/Settings";
 
 const styles = {
   PomoTodo: {
@@ -14,30 +15,41 @@ const styles = {
     backgroundColor: "#121212",
     padding: "0 0.5em",
   },
-  header: {
-    width: "100 %",
-    height: "4em",
-    display: "flex",
-    alignItems: "center",
-    color: "#eeeeee",
-    "& a": {
-      marginLeft: "auto",
-      color: "#bbbbbb",
-      fontSize: "1.5em",
-    },
-  },
 };
 
 class PomoTodo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showSettings: true,
+    };
+    this.toggleSettings = this.toggleSettings.bind(this);
+  }
+
+  toggleSettings() {
+    this.setState({
+      showSettings: !this.state.showSettings,
+    });
+  }
+
   render() {
     const { classes } = this.props;
+    const { showSettings } = this.state;
+
     return (
       <div className={classes.PomoTodo}>
-        <div className={classes.header}>
-          <h1>PomoTodo</h1>
-        </div>
-        <Pomodoro />
-        <TodoList />
+        <Navbar
+          toggleSettings={this.toggleSettings}
+          showSettings={showSettings}
+        />
+        {showSettings ? (
+          <Settings />
+        ) : (
+          <React.Fragment>
+            <Pomodoro />
+            <TodoList />
+          </React.Fragment>
+        )}
       </div>
     );
   }
